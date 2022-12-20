@@ -20,6 +20,15 @@ class UsuarioController extends Controller
         $usuarios = Usuario::whereNull('deleted_at')->get();
         return view("usuarios.index",compact("usuarios"));
     }
+    
+    public function  restaurar()
+    {
+        $usuario = new Usuario;
+        $usuario->restoreAllDeletedUsers();
+
+        
+        return redirect("/usuarios");
+    }
 
     public function borrar(Request $request, $id)
     {
