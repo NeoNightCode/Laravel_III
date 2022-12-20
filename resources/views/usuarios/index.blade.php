@@ -26,10 +26,22 @@
 
 <script>
     $(document).ready(function () {
-        $('#tabla-pilotos').DataTable( {
-        columnDefs: [
-            { orderable: false, targets: [0,3,4,5,6,7,8] }
-        ],
+        $('#tabla').DataTable( {
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ usuarios por página",
+                "zeroRecords": "No se han encontrado usuarios - Contacto con el soporte",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "search": "Buscar",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado por _MAX_ registros)",
+                "paginate": {
+                    'next': "Siguiente",
+                    'previous': "Anterior",
+                }
+            },
+            columnDefs: [
+                { orderable: false, targets: [0,1,2] }
+            ],
         });
     });
 </script>
