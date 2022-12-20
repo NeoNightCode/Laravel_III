@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="{{route('usuarios.restaurar')}}" class="btn btn-success mb-3">Restaurar</a>
+                <div id="borrado_d" class="btn btn-danger mb-3" type="button">Borrado Definitivo</div>
             </div>
         </div>
         <table id="tabla" class="table table-striped table-bordered">
@@ -84,6 +85,46 @@
                 }
             })    
         });
+
+        $(document).on("click","#borrado_d",function(e){
+            e.preventDefault();
+           
+            //confirmar con sweetalert
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Se eliminaran de forma permanente los usuarios anteriormente borrados",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar!',
+                cancelButtonText: 'No, cancelar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/usuarios/borrado_d',
+                        method: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(result){
+                            console.log("si");
+                        }
+                    })
+                }
+            })    
+        });
+
+        function deleteUsers() {
+        $.ajax({
+            url: '/users/delete',
+            method: 'DELETE',
+            success: function(result) {
+            // Código para manejar el resultado
+            }
+        });
+        }
+
     });
 
 

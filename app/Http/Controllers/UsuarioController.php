@@ -30,6 +30,15 @@ class UsuarioController extends Controller
         return redirect("/usuarios");
     }
 
+    public function borrado_d(Request $request)
+    {
+        Usuario::onlyTrashed()->forceDelete();
+        return response()->json([
+            'success' => 'Usuarios eliminados de forma definitiva.'
+        ]);
+    }
+
+
     public function borrar(Request $request, $id)
     {
         $usuario = Usuario::find($id);
