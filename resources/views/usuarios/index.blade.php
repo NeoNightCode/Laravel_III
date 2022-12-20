@@ -13,12 +13,11 @@
             </thead>
             <tbody>
                 @foreach ($usuarios as $usuario)
-                <tr data-id='{{$piloto->id}}'>
+                <tr data-id='{{$usuario->id}}'>
                     <td>{{$usuario->id}}</td>
                     <td>{{$usuario->nombre}}</td>
                     <td>{{$usuario->apellidos}}</td>
                     <td>{{date('d-m-Y', strtotime($usuario->f_nacimiento))}}</td>
-                    <td class="center"><a href="{{url('/pilotos')}}/{{$piloto->id}}">{{\App\Models\Vuelo::where('piloto_id',$piloto->id)->count()}}</a></td>
                 </tr>
                 @endforeach
             </tbody>
