@@ -9,6 +9,7 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Fecha Nacimiento</th>
+                    <th>Edad</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                     <td>{{$usuario->nombre}}</td>
                     <td>{{$usuario->apellidos}}</td>
                     <td>{{date('d-m-Y', strtotime($usuario->f_nacimiento))}}</td>
+                    <td>{{$usuario->edad}}</td>
                     <td><img class="imagenes borrar" src="{{ URL::to('/assets/img/borrar.png') }}"></td>
                 </tr>
                 @endforeach
