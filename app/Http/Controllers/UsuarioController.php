@@ -17,7 +17,13 @@ class UsuarioController extends Controller
     
     public function  index()
     {
-        $usuarios = Usuario::all(); 
+        $usuarios = Usuario::whereNull('deleted_at')->get();
         return view("usuarios.index",compact("usuarios"));
+    }
+
+    public function borrar(Request $request, $id)
+    {
+        $usuario = Usuario::find($id);
+        $usuario->delete();
     }
 }

@@ -9,6 +9,7 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Fecha Nacimiento</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +19,7 @@
                     <td>{{$usuario->nombre}}</td>
                     <td>{{$usuario->apellidos}}</td>
                     <td>{{date('d-m-Y', strtotime($usuario->f_nacimiento))}}</td>
+                    <td><img class="imagenes borrar" src="{{ URL::to('/assets/img/borrar.png') }}"></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -40,10 +42,45 @@
                 }
             },
             columnDefs: [
-                { orderable: false, targets: [0,1,2] }
+                { orderable: false, targets: [0,2,3,4] }
             ],
         });
+
+
+        $("#tabla").on("click",".borrar",function(e){
+            e.preventDefault();
+           
+            //confirmar con sweetalert
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "El usuario sera borrado de la base de datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar!',
+                cancelButtonText: 'No, cancelar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const tr=$(this).closest("tr");
+                    const id=tr.data("id");
+                    $.ajax({
+                        url: "{{url('/usuarios/delete')}}/"+id,
+                        method: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(){
+                            tr.fadeOut();
+                        }
+                    })
+                }
+            })    
+        });
     });
+
+
+
 </script>
 
 @endsection
